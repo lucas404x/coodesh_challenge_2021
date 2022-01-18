@@ -36,12 +36,13 @@ class PatientModel {
   }
 
   factory PatientModel.fromMap(Map<String, dynamic> map) {
+    Map<String, dynamic> id = map['id'];
     Map<String, dynamic> name = map['name'];
     Map<String, dynamic> location = map['location'];
     DateTime dateBirthday = DateTime.parse(map['dob']['date']);
 
     return PatientModel(
-      id: '',
+      id: '${id['name']} - ${id['value']}',
       email: map['email'],
       photo: map['picture']['medium'],
       gender: map['gender'],
