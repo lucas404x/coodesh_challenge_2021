@@ -36,16 +36,21 @@ class PatientModel {
   }
 
   factory PatientModel.fromMap(Map<String, dynamic> map) {
+    Map<String, dynamic> name = map['name'];
+    Map<String, dynamic> location = map['location'];
+    DateTime dateBirthday = DateTime.parse(map['dob']['date']);
+
     return PatientModel(
-      id: map['id'] ?? '',
-      email: map['email'] ?? '',
-      photo: map['photo'] ?? '',
-      gender: map['gender'] ?? '',
-      address: map['address'] ?? '',
-      fullname: map['fullname'] ?? '',
-      phoneNumber: map['phoneNumber'] ?? '',
-      nationality: map['nationality'] ?? '',
-      dateBirthday: map['dateBirthday'],
+      id: '',
+      email: map['email'],
+      photo: map['picture']['medium'],
+      gender: map['gender'],
+      nationality: map['nat'],
+      phoneNumber: map['cell'],
+      address:
+          '${location['street']['name']}, ${location['street']['number']} - ${location['postcode']}',
+      fullname: '${name['title']} ${name['first']} ${name['last']}',
+      dateBirthday: dateBirthday.toLocal(),
     );
   }
 }
