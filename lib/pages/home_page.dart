@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/patient_list_bloc/patient_list_bloc.dart';
+import '../data/repositories/patient_repository.dart';
+import 'widgets/patient_list.dart';
 import 'widgets/search_bar.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,7 +17,15 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const [_HomeHeader()],
+          children: [
+            const _HomeHeader(),
+            const SizedBox(height: 32),
+            BlocProvider(
+              create: (context) =>
+                  PatientListBloc(context.read<PatientRepository>()),
+              child: _HomeBody(),
+            )
+          ],
         ),
       )),
     );
@@ -45,5 +57,30 @@ class _HomeHeader extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class _HomeBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<PatientListBloc, PatientListState>(
+        builder: (context, state) {
+      final bloc = context.read<PatientListBloc>();
+      if (state is PatientListInitialState) {
+        bloc.add(PatientListLoadEvent());
+      }
+
+      if (state is PatientListLoadedState) {
+        return Flexible(child: PatientList(patients: bloc.patients));
+      }
+
+      if (state is PatientListErrorState) {
+        return Center(child: Text(state.message));
+      }
+
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    });
   }
 }
