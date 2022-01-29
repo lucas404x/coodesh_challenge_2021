@@ -21,7 +21,7 @@ class _SearchBarState extends State<SearchBar> {
                   EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               border: OutlineInputBorder(),
               suffixIcon: Icon(Icons.person_search),
-              hintText: 'Search by name or nationality')),
+              hintText: 'Searching')),
     );
   }
 }

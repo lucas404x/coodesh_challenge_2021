@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/interfaces/patient_repository_interface.dart';
 import '../../data/models/patient_list_item_model.dart';
-import '../../data/models/patient_model.dart';
 
 part 'patient_list_event.dart';
 part 'patient_list_state.dart';
@@ -14,25 +13,33 @@ class PatientListBloc extends Bloc<PatientListEvent, PatientListState> {
   List<PatientListItemModel> get patients => _patients;
 
   PatientListBloc(this._patientRepository) : super(PatientListInitialState()) {
-    on<PatientListLoadEvent>(_fetchPatients);
+    on<PatientListLoadEvent>(_loadList);
+    on<PatientListExtendEvent>(_extendList);
   }
 
-  _fetchPatients(
-      PatientListEvent event, Emitter<PatientListState> emitter) async {
+  _loadList(PatientListEvent event, Emitter<PatientListState> emitter) async {
     emitter(PatientListLoadingState());
-
-    List<PatientModel> localPatients;
-
     try {
-      localPatients = await _patientRepository.getPatients(50);
+      _patients.addAll(await _fetchPatients());
+      emitter(PatientListLoadedState());
     } catch (e) {
       emitter(PatientListErrorState(e.toString()));
-      return;
     }
+  }
 
-    _patients.addAll(localPatients
-        .map((patient) => PatientListItemModel.fromPatientModel(patient)));
+  _extendList(PatientListEvent event, Emitter<PatientListState> emitter) async {
+    try {
+      _patients.addAll(await _fetchPatients());
+      emitter(PatientListLoadedState());
+    } catch (e) {
+      emitter(PatientListErrorState(e.toString()));
+    }
+  }
 
-    emitter(PatientListLoadedState());
+  Future<List<PatientListItemModel>> _fetchPatients() async {
+    var localPatients = await _patientRepository.getPatients(50);
+    return localPatients
+        .map((patient) => PatientListItemModel.fromPatientModel(patient))
+        .toList();
   }
 }

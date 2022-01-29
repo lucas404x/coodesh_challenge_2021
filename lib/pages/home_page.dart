@@ -71,7 +71,13 @@ class _HomeBody extends StatelessWidget {
       }
 
       if (state is PatientListLoadedState) {
-        return Flexible(child: PatientList(patients: bloc.patients));
+        return Flexible(
+            child: PatientList(
+          patients: bloc.patients,
+          onEndList: () {
+            bloc.add(PatientListExtendEvent());
+          },
+        ));
       }
 
       if (state is PatientListErrorState) {
