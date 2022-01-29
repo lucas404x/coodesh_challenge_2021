@@ -8,8 +8,37 @@ class PatientListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(patient.fullname),
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 48,
+              backgroundImage: NetworkImage(patient.profile),
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 8),
+                Text(patient.fullname),
+                const SizedBox(height: 8),
+                Text(patient.nationality),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Text(patient.gender), Text(patient.dateBirthday)],
+                )
+              ],
+            )),
+          ],
+        ),
+      ),
     );
   }
 }

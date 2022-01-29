@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               textTheme: GoogleFonts.nunitoTextTheme()),
           home: const HomePage(),
+          scrollBehavior: const ScrollBehavior(
+              androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
         ));
   }
 }

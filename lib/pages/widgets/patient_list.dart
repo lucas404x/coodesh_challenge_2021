@@ -11,7 +11,9 @@ class PatientList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 1,
-        itemBuilder: (_, index) => PatientListTile(patient: patients[index]));
+        itemCount: patients.length,
+        itemBuilder: (_, index) => Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+            child: PatientListTile(patient: patients[index])));
   }
 }

@@ -21,7 +21,8 @@ class PatientListItemModel {
   factory PatientListItemModel.fromPatientModel(PatientModel patient) =>
       PatientListItemModel(
           id: patient.id,
-          gender: patient.gender,
+          gender: patient.gender
+              .replaceFirst(patient.gender[0], patient.gender[0].toUpperCase()),
           profile: patient.photo,
           fullname: patient.fullname,
           nationality: patient.nationality,
