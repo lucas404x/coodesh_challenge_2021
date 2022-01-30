@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma_inc_app/data/models/patient_model.dart';
 
 import '../../data/interfaces/patient_repository_interface.dart';
-import '../../data/models/patient_list_item_model.dart';
 
 part 'patient_list_event.dart';
 part 'patient_list_state.dart';
@@ -9,8 +9,8 @@ part 'patient_list_state.dart';
 class PatientListBloc extends Bloc<PatientListEvent, PatientListState> {
   final IPatientRepository _patientRepository;
 
-  final List<PatientListItemModel> _patients = List.empty(growable: true);
-  List<PatientListItemModel> get patients => _patients;
+  final List<PatientModel> _patients = List.empty(growable: true);
+  List<PatientModel> get patients => _patients;
 
   PatientListBloc(this._patientRepository) : super(PatientListInitialState()) {
     on<PatientListLoadEvent>(_loadList);
@@ -36,10 +36,7 @@ class PatientListBloc extends Bloc<PatientListEvent, PatientListState> {
     }
   }
 
-  Future<List<PatientListItemModel>> _fetchPatients() async {
-    var localPatients = await _patientRepository.getPatients(50);
-    return localPatients
-        .map((patient) => PatientListItemModel.fromPatientModel(patient))
-        .toList();
+  Future<List<PatientModel>> _fetchPatients() async {
+    return await _patientRepository.getPatients(50);
   }
 }

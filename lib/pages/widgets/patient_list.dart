@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../data/models/patient_list_item_model.dart';
+import '../../data/models/patient_model.dart';
 import 'patient_list_tile.dart';
 import 'patient_modal.dart';
 
 class PatientList extends StatelessWidget {
-  final List<PatientListItemModel> patients;
+  final List<PatientModel> patients;
   final Function onEndList;
 
   const PatientList({Key? key, required this.patients, required this.onEndList})

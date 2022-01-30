@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../data/models/patient_list_item_model.dart';
+
+import '../../data/models/patient_model.dart';
 
 class PatientModal extends StatelessWidget {
-  final PatientListItemModel patient;
+  final PatientModel patient;
   const PatientModal({Key? key, required this.patient}) : super(key: key);
 
   @override

@@ -1,3 +1,5 @@
+import '../../utils/date_time_utils.dart';
+
 class PatientModel {
   final String id;
   final String email;
@@ -7,7 +9,7 @@ class PatientModel {
   final String fullname;
   final String phoneNumber;
   final String nationality;
-  final DateTime dateBirthday;
+  final String dateBirthday;
 
   PatientModel({
     required this.id,
@@ -36,22 +38,23 @@ class PatientModel {
   }
 
   factory PatientModel.fromMap(Map<String, dynamic> map) {
+    String gender = map['gender'];
     Map<String, dynamic> id = map['id'];
     Map<String, dynamic> name = map['name'];
     Map<String, dynamic> location = map['location'];
-    DateTime dateBirthday = DateTime.parse(map['dob']['date']);
+    DateTime dateBirthday = DateTime.parse(map['dob']['date']).toLocal();
 
     return PatientModel(
       id: '${id['name']} - ${id['value']}',
       email: map['email'],
       photo: map['picture']['medium'],
-      gender: map['gender'],
+      gender: gender.replaceFirst(gender[0], gender[0].toUpperCase()),
       nationality: map['nat'],
       phoneNumber: map['cell'],
       address:
           '${location['street']['name']}, ${location['street']['number']} - ${location['postcode']}',
       fullname: '${name['title']} ${name['first']} ${name['last']}',
-      dateBirthday: dateBirthday.toLocal(),
+      dateBirthday: DateTimeUtils.formatDateToLocalString(dateBirthday),
     );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../data/models/patient_list_item_model.dart';
+import '../../data/models/patient_model.dart';
 
 class PatientListTile extends StatelessWidget {
-  final PatientListItemModel patient;
+  final PatientModel patient;
   const PatientListTile({Key? key, required this.patient}) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class PatientListTile extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 48,
-              backgroundImage: NetworkImage(patient.profile),
+              backgroundImage: NetworkImage(patient.photo),
             ),
             const SizedBox(
               width: 16,
