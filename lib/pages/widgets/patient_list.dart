@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/models/patient_list_item_model.dart';
 import 'patient_list_tile.dart';
+import 'patient_modal.dart';
 
 class PatientList extends StatelessWidget {
   final List<PatientListItemModel> patients;
@@ -32,9 +33,14 @@ class PatientList extends StatelessWidget {
                 ));
           }
 
-          return Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: PatientListTile(patient: patients[index]));
+          return GestureDetector(
+            onTap: () => showModalBottomSheet(
+                context: context,
+                builder: (context) => PatientModal(patient: patients[index])),
+            child: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: PatientListTile(patient: patients[index])),
+          );
         });
   }
 }
