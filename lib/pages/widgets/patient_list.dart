@@ -35,6 +35,8 @@ class PatientList extends StatelessWidget {
 
           return GestureDetector(
             onTap: () => showModalBottomSheet(
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
                 context: context,
                 builder: (context) => PatientModal(patient: patients[index])),
             child: Padding(
