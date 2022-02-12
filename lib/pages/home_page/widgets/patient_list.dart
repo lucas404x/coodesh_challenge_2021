@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../data/models/patient_model.dart';
+import '../../../data/models/patient_model.dart';
 import 'patient_list_tile.dart';
 import 'patient_modal.dart';
 

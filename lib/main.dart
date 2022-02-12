@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pharma_inc_app/utils/color_utils.dart';
 import 'data/repositories/patient_repository.dart';
-import 'pages/home_page.dart';
+import 'pages/home_page/home_page.dart';
 import 'package:pharma_inc_app/constants/colors.dart';
 
 void main() {

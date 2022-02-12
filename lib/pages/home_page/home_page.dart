@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/patient_list_bloc/patient_list_bloc.dart';
-import '../data/repositories/patient_repository.dart';
+import '../../../blocs/patient_list_bloc/patient_list_bloc.dart';
+import '../../../data/repositories/patient_repository.dart';
 import 'widgets/patient_list.dart';
 import 'widgets/search_bar.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
