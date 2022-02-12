@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../data/interfaces/patient_repository_interface.dart';
 import '../../data/models/patient_model.dart';
-import 'package:rxdart/rxdart.dart';
 
 part 'patient_list_event.dart';
 part 'patient_list_state.dart';
