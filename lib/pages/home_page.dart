@@ -15,17 +15,13 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const _HomeHeader(),
-            const SizedBox(height: 32),
-            BlocProvider(
-              create: (context) =>
-                  PatientListBloc(context.read<PatientRepository>()),
-              child: _HomeBody(),
-            )
-          ],
+        child: BlocProvider(
+          create: (context) =>
+              PatientListBloc(context.read<PatientRepository>()),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [_HomeHeader(), SizedBox(height: 32), _HomeBody()],
+          ),
         ),
       )),
     );
@@ -50,7 +46,11 @@ class _HomeHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Flexible(child: SearchBar(onChanged: (_) {})),
+            Flexible(child: SearchBar(onChanged: (query) {
+              context
+                  .read<PatientListBloc>()
+                  .add(PatientListSearchEvent(query: query));
+            })),
             IconButton(
                 onPressed: () {}, icon: const Icon(Icons.filter_list_alt))
           ],
@@ -61,6 +61,8 @@ class _HomeHeader extends StatelessWidget {
 }
 
 class _HomeBody extends StatelessWidget {
+  const _HomeBody({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PatientListBloc, PatientListState>(
@@ -73,7 +75,8 @@ class _HomeBody extends StatelessWidget {
       if (state is PatientListLoadedState) {
         return Flexible(
             child: PatientList(
-          patients: bloc.patients,
+          patients: state.patients,
+          shouldShowLoadingMore: bloc.lastQuery.isEmpty,
           onEndList: () {
             bloc.add(PatientListExtendEvent());
           },

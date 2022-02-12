@@ -6,17 +6,23 @@ import 'patient_modal.dart';
 
 class PatientList extends StatelessWidget {
   final List<PatientModel> patients;
+  final bool shouldShowLoadingMore;
   final Function onEndList;
 
-  const PatientList({Key? key, required this.patients, required this.onEndList})
+  const PatientList(
+      {Key? key,
+      required this.patients,
+      required this.shouldShowLoadingMore,
+      required this.onEndList})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: patients.length + 1,
+        itemCount:
+            shouldShowLoadingMore ? patients.length + 1 : patients.length,
         itemBuilder: (_, index) {
-          if (index == patients.length) {
+          if (index == patients.length && shouldShowLoadingMore) {
             onEndList();
             return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32),

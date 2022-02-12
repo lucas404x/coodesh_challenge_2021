@@ -6,7 +6,11 @@ class PatientListInitialState extends PatientListState {}
 
 class PatientListLoadingState extends PatientListState {}
 
-class PatientListLoadedState extends PatientListState {}
+class PatientListLoadedState extends PatientListState {
+  final List<PatientModel> patients;
+
+  PatientListLoadedState({required this.patients});
+}
 
 class PatientListErrorState extends PatientListState {
   final String message;
