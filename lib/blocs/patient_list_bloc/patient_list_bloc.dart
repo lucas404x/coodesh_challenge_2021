@@ -56,6 +56,8 @@ class PatientListBloc extends Bloc<PatientListEvent, PatientListState> {
     emitter(PatientListLoadingState());
 
     String query = event.query.trim();
+    if (_lastQuery == query) return;
+
     _lastQuery = query;
     if (query.isEmpty) {
       emitter(PatientListLoadedState(patients: _patients));

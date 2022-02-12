@@ -35,6 +35,7 @@ class _HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(height: 16),
         Center(
           child: Text('Pharma Inc',
               style: Theme.of(context)
@@ -42,7 +43,7 @@ class _HomeHeader extends StatelessWidget {
                   .headline5!
                   .copyWith(fontWeight: FontWeight.bold)),
         ),
-        const SizedBox(height: 64),
+        const SizedBox(height: 32),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
